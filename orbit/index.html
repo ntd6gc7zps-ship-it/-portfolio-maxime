@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0A0B2E" />
+  <meta name="description" content="ORBIT — expérience cinéma immersive. Prototype interactif : films, séances, places, pop-corn et billets." />
+  <title>ORBIT — Chaque film est une planète</title>
+  <link rel="icon" href="assets/orbit.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="cosmos" aria-hidden="true"><div class="nebula nebula-a"></div><div class="nebula nebula-b"></div><div class="star-field" id="star-field"></div><div id="shooting-layer"></div></div>
+  <div id="cursor-trail" aria-hidden="true"></div>
+  <div id="app"></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+<script src="../cursor-glow.js" defer></script>
+</body>
+</html>

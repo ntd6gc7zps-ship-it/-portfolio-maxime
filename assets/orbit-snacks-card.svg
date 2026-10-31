@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="246" height="515" viewBox="0 0 246 515">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#18143d"/>
+      <stop offset="100%" stop-color="#0d0b24"/>
+    </linearGradient>
+    <linearGradient id="btn" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9f62ff"/>
+      <stop offset="100%" stop-color="#f08dd2"/>
+    </linearGradient>
+  </defs>
+  <rect width="246" height="515" rx="28" fill="url(#bg)"/>
+  <circle cx="62" cy="86" r="92" fill="#8b4bff" opacity="0.18"/>
+  <text x="22" y="39" fill="#ffffff" font-family="Arial, sans-serif" font-size="18" font-weight="700">Snacks</text>
+  <text x="22" y="58" fill="#b9b2df" font-family="Arial, sans-serif" font-size="10">Commande à retirer avant la séance</text>
+  <rect x="20" y="76" width="206" height="66" rx="18" fill="#151237" stroke="#433d83"/>
+  <image href="../orbit/assets/posters/dune.svg" x="30" y="88" width="38" height="44" preserveAspectRatio="xMidYMid slice"/>
+  <text x="78" y="102" fill="#ffffff" font-family="Arial, sans-serif" font-size="12" font-weight="700">Dune : Part Two</text>
+  <text x="78" y="119" fill="#b9b2df" font-family="Arial, sans-serif" font-size="9">20:30 • Orbit Cinéma Centre</text>
+  <text x="78" y="131" fill="#f2a6d7" font-family="Arial, sans-serif" font-size="9">2 places</text>
+
+  <g font-family="Arial, sans-serif" font-size="12" font-weight="700">
+    <rect x="20" y="160" width="98" height="126" rx="18" fill="#151237" stroke="#433d83"/>
+    <text x="34" y="182" fill="#fff">Pop-corn caramel</text>
+    <text x="34" y="196" fill="#b9b2df" font-size="9" font-weight="400">Grand format • chaud</text>
+    <text x="42" y="244" fill="#ffffff" font-size="34">🍿</text>
+    <rect x="34" y="258" width="70" height="14" rx="7" fill="url(#btn)"/>
+    <text x="59" y="268" fill="#160f24" font-size="8">+ Ajouter</text>
+
+    <rect x="128" y="160" width="98" height="126" rx="18" fill="#151237" stroke="#433d83"/>
+    <text x="149" y="182" fill="#fff">Boisson cosmos</text>
+    <text x="144" y="196" fill="#b9b2df" font-size="9" font-weight="400">Lavande & myrtille</text>
+    <text x="151" y="244" fill="#ffffff" font-size="34">🥤</text>
+    <rect x="142" y="258" width="70" height="14" rx="7" fill="url(#btn)"/>
+    <text x="167" y="268" fill="#160f24" font-size="8">+ Ajouter</text>
+  </g>
+
+  <rect x="20" y="302" width="206" height="110" rx="18" fill="#151237" stroke="#433d83"/>
+  <text x="34" y="326" fill="#ffffff" font-family="Arial, sans-serif" font-size="13" font-weight="700">Films du moment</text>
+  <image href="../orbit/assets/posters/batman.svg" x="34" y="338" width="36" height="48" preserveAspectRatio="xMidYMid slice"/>
+  <image href="../orbit/assets/posters/toy.svg" x="82" y="338" width="36" height="48" preserveAspectRatio="xMidYMid slice"/>
+  <image href="../orbit/assets/posters/orange.svg" x="130" y="338" width="36" height="48" preserveAspectRatio="xMidYMid slice"/>
+  <text x="34" y="399" fill="#b9b2df" font-family="Arial, sans-serif" font-size="9">Même univers visuel que dans le prototype Orbit</text>
+
+  <rect x="20" y="430" width="206" height="58" rx="19" fill="url(#btn)"/>
+  <text x="73" y="456" fill="#160f24" font-family="Arial, sans-serif" font-size="14" font-weight="700">Valider ma commande</text>
+  <text x="95" y="472" fill="#24142c" font-family="Arial, sans-serif" font-size="10">5,50 € • retrait express</text>
+</svg>
