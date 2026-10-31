@@ -1,0 +1,38 @@
+
+.orbit-ref-screen{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box;border:1px solid #6650b4;border-radius:17px;background:linear-gradient(150deg,#20184e,#101037 65%);color:#fff;font-family:Inter,"DM Sans",Arial,sans-serif;container-type:inline-size}
+.orbit-ref-screen *{box-sizing:border-box}
+.ors-header{padding:6% 6% 3%;display:flex;justify-content:space-between;gap:5px;font-size:clamp(7px,6cqw,19px);font-weight:800}
+.ors-header small{font-size:clamp(5px,2.7cqw,11px);font-weight:500;color:#c4b6ff}
+.ors-search{margin:0 6% 4%;padding:3%;border:1px solid #55418d;border-radius:6px;background:#27204f;font-size:clamp(5px,3.2cqw,13px);color:#b9b4d5}
+.ors-filters{display:flex;gap:2%;margin:0 6% 4%;font-size:clamp(4px,2.5cqw,11px)}
+.ors-filters span{padding:2% 3%;border:1px solid #5b478d;border-radius:13px}
+.ors-filters span:first-child{background:#9553ec}
+.ors-label{font-size:clamp(8px,5cqw,20px);font-weight:800;margin:0 6% 3%}
+.ors-films{padding:0 6% 5%;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3%;min-height:0;flex:1}
+.ors-film{border-radius:8px;overflow:hidden;border:1px solid #50418b;background:#1d1a49;min-width:0}
+.ors-film img{display:block;width:100%;aspect-ratio:2/2.8;object-fit:cover;object-position:top center;background:linear-gradient(140deg,#985574,#14152c)}
+.ors-film b{display:block;padding:7% 6% 3%;font-size:clamp(6px,3.4cqw,14px);line-height:1.15}
+.ors-film small{display:block;padding:0 6% 6%;font-size:clamp(4px,2.3cqw,10px);color:#bfb3e9}
+.orbit-ref-screen.phone{width:165px;aspect-ratio:248/515}
+.orbit-ref-screen.desktop{width:100%;aspect-ratio:1407/711}
+.orbit-ref-screen.desktop .ors-films{grid-template-columns:repeat(4,minmax(0,1fr));gap:2%;padding:0 5% 4%}
+.orbit-ref-screen.desktop .ors-film img{aspect-ratio:1/1.05}
+.orbit-ref-screen.desktop .ors-header{padding:2% 5% 1%;font-size:clamp(10px,2.7cqw,24px)}
+.orbit-ref-screen.desktop .ors-header small{font-size:clamp(6px,1.1cqw,12px)}
+.orbit-ref-screen.desktop .ors-search{margin:0 5% 1.5%;padding:1.2% 2%;font-size:clamp(6px,1.0cqw,12px)}
+.orbit-ref-screen.desktop .ors-filters{margin:0 5% 1.5%;font-size:clamp(6px,1cqw,12px)}
+.orbit-ref-screen.desktop .ors-filters span{padding:.5% 1.4%}
+.orbit-ref-screen.desktop .ors-label{margin:0 5% 1.4%;font-size:clamp(10px,1.7cqw,19px)}
+.orbit-ref-screen.desktop .ors-film b{font-size:clamp(7px,1.25cqw,15px)}
+.orbit-ref-screen.desktop .ors-film small{font-size:clamp(5px,.85cqw,10px)}
+.hero-phone-frame .orbit-ref-screen{height:100%;width:196px}
+#dialog-gallery.orbit-ref-dialog{flex-wrap:wrap;gap:15px}
+#dialog-gallery .ors-modal-desktop{width:min(360px,100%)}
+#dialog-gallery .ors-modal-phone{width:158px;flex:none}
+#dialog-gallery .ors-modal-phone .orbit-ref-screen{width:100%}
+#dialog-gallery .ors-modal-snacks{width:145px;max-height:315px;object-fit:contain}
+.scene-browser .orbit-ref-screen{border:0;border-radius:0}
+.scene-phone .orbit-ref-screen{width:100%;height:100%;border:0;border-radius:18px}
+.showcase-overview .orbit-ref-screen{border:0;border-radius:0}
+.phone-cell .device .orbit-ref-screen{width:100%;height:330px;border:0;border-radius:20px}
+@media(max-width:650px){#dialog-gallery .ors-modal-desktop{width:100%}#dialog-gallery .ors-modal-phone{width:140px}}
