@@ -15,8 +15,8 @@ function screen(type){
  el.setAttribute("role","img");
  el.setAttribute("aria-label","Interface Orbit présentant les affiches de Dune 2, The Batman, Toy Story 5 et Orange mécanique");
  var html='<div class="ors-header"><strong>◉ ORBIT</strong><small>Explorer · Séances · Avis · Snacks</small></div><div class="ors-search">⌕ Rechercher un film ou un univers...</div><div class="ors-filters"><span>Tous</span><span>Science-fiction</span><span>Action</span><span>Famille</span></div><div class="ors-label">À l’affiche</div><div class="ors-films">';
- films.forEach(function(f){html+='<div class="ors-film"><img src="'+f[2]+'" alt="Affiche de '+f[0]+'" loading="lazy"><b>'+f[0]+'</b><small>'+f[1]+'</small></div>';});
- el.innerHTML=html+"</div>";return el;
+ films.forEach(function(f,i){html+='<div class="ors-film"><img src="'+f[2]+'" data-fallback="'+root+'orbit/assets/posters/'+['dune','batman','toy','orange'][i]+'.png" alt="Affiche de '+f[0]+'" loading="lazy"><b>'+f[0]+'</b><small>'+f[1]+'</small></div>';});
+ el.innerHTML=html+"</div>";el.querySelectorAll("img[data-fallback]").forEach(function(img){img.addEventListener("error",function(){if(img.dataset.fallback){var fallback=img.dataset.fallback;img.removeAttribute("data-fallback");img.src=fallback;}});});return el;
 }
 function replace(sel,type){
  document.querySelectorAll(sel).forEach(function(img){
