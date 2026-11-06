@@ -1,0 +1,18 @@
+Dernière Séance — Crédits audio
+
+Salamander Grand Piano — Alexander Holm
+Piano acoustique Yamaha C5, enregistrements C2 et C3.
+Licence : Creative Commons Attribution 3.0 Unported (CC BY 3.0)
+https://creativecommons.org/licenses/by/3.0/
+Source et notice de licence :
+https://github.com/Tonejs/audio/blob/master/salamander/README
+Échantillons distribués par le projet Tone.js :
+https://tonejs.github.io/audio/salamander/C2.mp3
+https://tonejs.github.io/audio/salamander/C3.mp3
+
+Les fichiers MP3 sont redistribués sans modification. Pendant la lecture,
+le jeu applique une enveloppe, un filtre, une réverbération, une spatialisation
+et, pour certaines notes de tension, une transposition.
+Aucune approbation du jeu par l’auteur n’est sous-entendue.
+
+Les cris, pas, grondements et autres bruitages sont synthétisés par le jeu.

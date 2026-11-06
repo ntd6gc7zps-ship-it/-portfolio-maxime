@@ -1,5 +1,59 @@
 'use strict';
 let audio, master, noiseBuffer, enabled = true;
+let pianoBus, tensionBus, pianoLoad, audioSceneActive = false;
+const pianoSamples = [
+  {frequency:65.4064, url:'audio/piano-c2.mp3', buffer:null},
+  {frequency:130.8128, url:'audio/piano-c3.mp3', buffer:null}
+];
+const pianoVoices = new Set();
+function applyAudioVolume() {
+  if (!master) return;
+  const at=audio.currentTime;
+  master.gain.cancelScheduledValues(at);
+  master.gain.setTargetAtTime(enabled&&audioSceneActive ? .55 : 0,at,.035);
+}
+function setAudioScene(active) {
+  audioSceneActive=active;
+  applyAudioVolume();
+}
+function loadPianoSamples() {
+  if (pianoLoad || !audio) return;
+  pianoLoad=Promise.all(pianoSamples.map(async sample=>{
+    try {
+      const response=await fetch(sample.url);
+      if (!response.ok) return;
+      sample.buffer=await audio.decodeAudioData(await response.arrayBuffer());
+    } catch { /* The synthesized fallback keeps offline play audible. */ }
+  }));
+}
+function setupPiano() {
+  pianoBus=audio.createGain();
+  tensionBus=audio.createGain();
+  tensionBus.gain.value=0;
+  tensionBus.connect(pianoBus);
+  pianoBus.connect(master);
+  const room=audio.createConvolver(), wet=audio.createGain();
+  const impulse=audio.createBuffer(2,Math.floor(audio.sampleRate*2.6),audio.sampleRate);
+  for(let channel=0;channel<2;channel++) {
+    const data=impulse.getChannelData(channel);
+    let smoothed=0;
+    for(let i=0;i<data.length;i++) {
+      smoothed=smoothed*.65+(Math.random()*2-1)*.35;
+      data[i]=i<audio.sampleRate*.025?0:smoothed*Math.pow(1-i/data.length,2.8);
+    }
+  }
+  room.buffer=impulse;wet.gain.value=.28;
+  pianoBus.connect(room).connect(wet).connect(master);
+  loadPianoSamples();
+}
+function setThreatLevel(level) {
+  if (tensionBus) tensionBus.gain.setTargetAtTime(clamp(level*1.4,0,1),audio.currentTime,.12);
+}
+function stopPiano() {
+  for(const source of pianoVoices) {try {source.stop();} catch {}}
+  pianoVoices.clear();
+  setThreatLevel(0);
+}
 function audioReady() {
   if (!enabled) return;
   try {
@@ -7,7 +61,7 @@ function audioReady() {
       const Audio = window.AudioContext || window.webkitAudioContext;
       audio = new Audio();
       master = audio.createGain();
-      master.gain.value = .55;
+      master.gain.value = 0;
       const limiter = audio.createDynamicsCompressor();
       limiter.threshold.value = -12;
       limiter.ratio.value = 10;
@@ -19,7 +73,9 @@ function audioReady() {
         previous = (previous + (Math.random()-.5)*.12)*.96;
         data[i] = previous;
       }
+      setupPiano();
     }
+    applyAudioVolume();
     audio.resume().catch(()=>{});
   } catch { /* Playable with visual cues when audio is unavailable. */ }
 }
@@ -55,27 +111,57 @@ function tone(hz,end,volume,duration,type='sine') {
   source.stop(at+duration);
 }
 
-function pianoNote(frequency, pan=0) {
+function pianoNote(frequency=65.4064, pan=0, {level=.82,duration=5,delay=0,tension=false}={}) {
   if (!enabled || !audio || audio.state !== 'running') return;
-  const at=audio.currentTime;
-  const output=audio.createGain();
+  const at=audio.currentTime+delay;
+  const output=audio.createGain(), destination=tension?tensionBus:pianoBus;
+  let stereo;
   if (audio.createStereoPanner) {
-    const stereo=audio.createStereoPanner();
+    stereo=audio.createStereoPanner();
     stereo.pan.value=clamp(pan,-1,1);
-    output.connect(stereo).connect(master);
-  } else output.connect(master);
-  const partials=[[1,.30,2.8],[2.001,.12,1.8],[3.008,.065,1],[4.016,.035,.65],[6.035,.018,.3]];
+    output.connect(stereo).connect(destination);
+  } else output.connect(destination);
+  const sample=pianoSamples.filter(s=>s.buffer).sort((a,b)=>
+    Math.abs(Math.log2(frequency/a.frequency))-Math.abs(Math.log2(frequency/b.frequency)))[0];
+  if(sample) {
+    const source=audio.createBufferSource(), filter=audio.createBiquadFilter();
+    source.buffer=sample.buffer;source.playbackRate.value=frequency/sample.frequency;
+    filter.type='lowpass';filter.frequency.value=tension?3500:5200;
+    output.gain.setValueAtTime(0,at);
+    output.gain.linearRampToValueAtTime(level,at+.006);
+    output.gain.setValueAtTime(level,at+Math.max(.02,duration-.8));
+    output.gain.exponentialRampToValueAtTime(.001,at+duration);
+    source.connect(filter).connect(output);pianoVoices.add(source);
+    source.onended=()=>{pianoVoices.delete(source);source.disconnect();filter.disconnect();output.disconnect();stereo?.disconnect();};
+    source.start(at);source.stop(at+duration+.02);
+    return;
+  }
+  // Only used if sample loading fails; the normal voice is a recorded grand piano.
+  const partials=[[1,.30,4.2],[2.001,.17,2.9],[3.008,.085,1.7],[4.016,.045,1],[6.035,.025,.45]];
+  output.gain.value=level;
+  let remaining=partials.length;
   for (const [multiple,level,decay] of partials) {
     const oscillator=audio.createOscillator(), envelope=audio.createGain();
     oscillator.type='sine';
     oscillator.frequency.value=frequency*multiple;
     envelope.gain.setValueAtTime(.001,at);
     envelope.gain.exponentialRampToValueAtTime(level,at+.008);
-    envelope.gain.exponentialRampToValueAtTime(.001,at+decay);
+    envelope.gain.exponentialRampToValueAtTime(.001,at+Math.min(decay,duration));
     oscillator.connect(envelope).connect(output);
-    oscillator.start(at);oscillator.stop(at+decay+.02);
+    pianoVoices.add(oscillator);
+    oscillator.onended=()=>{
+      pianoVoices.delete(oscillator);oscillator.disconnect();envelope.disconnect();
+      if(--remaining===0){output.disconnect();stereo?.disconnect();}
+    };
+    oscillator.start(at);oscillator.stop(at+Math.min(decay,duration)+.02);
   }
-  noise(.045,.08,3200,pan);
+}
+function threatNote(intensity,pan,beat) {
+  const pattern=[65.4064,69.2957,65.4064,92.4986];
+  pianoNote(pattern[beat%pattern.length],pan,{level:.32+intensity*.3,duration:1.4,tension:true});
+  if(intensity>.42) {
+    pianoNote(beat%2?138.5913:130.8128,-pan*.5,{level:.16+intensity*.16,duration:1.1,delay:.14,tension:true});
+  }
 }
 function scream(kind='nun') {
   if (!enabled || !audio || audio.state !== 'running') return;

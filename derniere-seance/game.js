@@ -67,7 +67,8 @@ let state='intro', pausedFrom='play', time=DURATION, elapsed=0, last=performance
 let fuses=[], monsters=[], fuseCount=0, power=false, hasKey=false, repair=0;
 let lamp=true, battery=100, stamina=100, moving=false, sprinting=false;
 let nextStep=0,nextNoise=3,nextHeartbeat=0,nextHaunt=25;
-let nextScare=120, nonfatalScares=0;
+let nonfatalScares=0, travelled=0, nextScareDistance=8, lastScareAt=-Infinity;
+let dangerLevel=0, nextThreatNote=0, threatBeat=0;
 let scare=null, apparition=null, message='',messageUntil=0, nearest=null, threat=Infinity;
 let lastHud='',lastSecond=-1;
 function say(text,duration=5) {message=text;messageUntil=elapsed+duration;}
@@ -99,12 +100,14 @@ function makeMonster(type,x,y,wake) {
   return {type,x,y,scale:type==='nun'?1.05:.58,wake,target:null,destination:null,repath:0,alertUntil:0,patrol:0,stunnedUntil:0,nextStun:0};
 }
 function start() {
-  audioReady();Object.assign(p,startPosition);keys.clear();
+  audioReady();stopPiano();setAudioScene(true);Object.assign(p,startPosition);keys.clear();
   fuses=fuseLocations.map(f=>({...f,type:'fuse',scale:.23,lift:.3,taken:false}));
   monsters=[makeMonster('nun',28.5,5.5,20),makeMonster('crawler',28.5,29.5,65)];
   fuseCount=0;power=false;hasKey=false;repair=0;time=DURATION;elapsed=0;
   lamp=true;battery=100;stamina=100;nextStep=0;nextNoise=4;nextHeartbeat=0;
-  nextHaunt=22;nextScare=100+Math.random()*40;nonfatalScares=0;scare=null;apparition=null;nearest=null;threat=Infinity;
+  nextHaunt=22;nonfatalScares=0;travelled=0;nextScareDistance=8;lastScareAt=-Infinity;
+  dangerLevel=0;nextThreatNote=0;threatBeat=0;
+  scare=null;apparition=null;nearest=null;threat=Infinity;
   state='play';document.body.classList.remove('scaring');lastSecond=-1;lastHud='';last=performance.now();
   el('overlay').hidden=true;
   for(const id of ['hud','touch','cross','actions']) el(id).hidden=false;
@@ -112,6 +115,7 @@ function start() {
   if(matchMedia('(pointer:fine)').matches) lockPointer();
 }
 function finish(result) {
+  stopPiano();setAudioScene(false);
   state=result;keys.clear();scare=null;document.body.classList.remove('scaring');
   if(document.pointerLockElement) document.exitPointerLock();
   for(const id of ['hud','touch','cross','actions']) el(id).hidden=true;
@@ -122,22 +126,19 @@ function finish(result) {
   el('copy').textContent=victory?`Tu as quitté le cinéma en ${Math.floor(elapsed/60)} min ${Math.floor(elapsed%60)} s. Le projecteur s’est rallumé après ton départ.`:result==='caught'?'Tu peux la ralentir avec le faisceau de la lampe, puis t’échapper par un autre couloir. Courir attire les créatures.':'Le dernier circuit a cédé. La porte de secours restera fermée jusqu’au matin.';
   el('start').textContent='Recommencer';el('start').focus();
 }
-function triggerScare(kind,fatal=false) {
-  if(state!=='play'||scare) return;
-  if(!fatal) {
-    if(nonfatalScares>=2) return;
-    nonfatalScares++;
-    nextScare=elapsed+150+Math.random()*45;
-  }
-  scare={kind,fatal,age:0,duration:fatal?1.25:.65};
+function triggerScare(kind) {
+  if(state!=='play'||scare||nonfatalScares>=2) return;
+  nonfatalScares++;lastScareAt=elapsed;nextScareDistance=travelled+24;
+  nextHaunt=elapsed+12;nextThreatNote=elapsed+2;stopPiano();
+  scare={kind,age:0,duration:.9};
   state='scare';document.body.classList.add('scaring');keys.clear();scream(kind);apparition=null;
 }
 function pause() {
   if(state==='paused') {
-    state=pausedFrom;el('overlay').hidden=true;last=performance.now();lockPointer();return;
+    state=pausedFrom;setAudioScene(true);el('overlay').hidden=true;last=performance.now();lockPointer();return;
   }
   if(!['play','scare'].includes(state)) return;
-  pausedFrom=state;state='paused';keys.clear();
+  pausedFrom=state;state='paused';keys.clear();setAudioScene(false);
   if(document.pointerLockElement) document.exitPointerLock();
   el('overlay').hidden=false;el('tag').textContent='Le Rialto · Pause';el('title').innerHTML='Retiens<br><em>ton souffle.</em>';
   el('copy').textContent='Les créatures et le compte à rebours sont en pause.';
@@ -187,7 +188,37 @@ function updateMonsters(dt) {
       slide(m,Math.cos(heading)*step,Math.sin(heading)*step,.15);
     }
     threat=Math.min(threat,range);
-    if(range<.43) {triggerScare(m.type,true);return;}
+    // Capture ends the run without adding a third full-screen jump scare.
+    if(range<.43) {finish('caught');return;}
+  }
+}
+function corridorMiddle() {
+  if(rooms.some(r=>p.x>=r.x&&p.x<r.x+r.w&&p.y>=r.y&&p.y<r.y+r.h)) return false;
+  // Narrow sides, with open corridor ahead AND behind: avoid rooms and doorways.
+  return [[1,0],[0,1]].some(([dx,dy])=>{
+    const sx=-dy,sy=dx;
+    if(!walls(p.x+sx*1.9,p.y+sy*1.9)||!walls(p.x-sx*1.9,p.y-sy*1.9)) return false;
+    return [-1,1].every(direction=>{
+      const end={x:p.x+dx*2.4*direction,y:p.y+dy*2.4*direction};
+      return !walls(end.x,end.y)&&clearLine(p,end);
+    });
+  });
+}
+function updateThreatMusic(dt) {
+  let closest=null,range=8;
+  for(const monster of monsters) {
+    if(elapsed<monster.wake) continue;
+    const d=distance(monster,p);
+    if(d<range&&(clearLine(p,monster)||monster.alertUntil>elapsed)) {closest=monster;range=d;}
+  }
+  const target=closest?clamp((8-range)/6.5,0,1):0;
+  dangerLevel+=(target-dangerLevel)*(1-Math.exp(-dt/(target>dangerLevel ? .35 : .8)));
+  setThreatLevel(dangerLevel);
+  if(!closest||target<.04) return;
+  if(elapsed>=nextThreatNote) {
+    const bearing=Math.atan2(closest.y-p.y,closest.x-p.x)-p.a;
+    threatNote(dangerLevel,Math.sin(bearing),threatBeat++);
+    nextThreatNote=elapsed+2.5-dangerLevel*1.95;
   }
 }
 function spawnCorridorRunner() {
@@ -217,6 +248,10 @@ function spawnCorridorRunner() {
   return false;
 }
 function haunt(dt) {
+  if(nonfatalScares<2&&moving&&travelled>=nextScareDistance&&elapsed-lastScareAt>=28&&corridorMiddle()) {
+    triggerScare(nonfatalScares===0?'nun':'crawler');
+    return;
+  }
   if(apparition) {
     apparition.x+=apparition.vx*dt;
     apparition.y+=apparition.vy*dt;
@@ -224,7 +259,7 @@ function haunt(dt) {
     const bearing=Math.atan2(apparition.y-p.y,apparition.x-p.x)-p.a;
     if(!apparition.heard&&Math.cos(bearing)>.85&&clearLine(p,apparition)) {
       apparition.heard=true;
-      pianoNote(138.59, Math.sin(bearing));
+      pianoNote(65.4064, Math.sin(bearing));
       noise(.16,.28,550,Math.sin(bearing));
     }
     if(apparition.life<=0) apparition=null;
@@ -232,10 +267,6 @@ function haunt(dt) {
   if(elapsed>=nextHaunt&&!apparition) {
     const spawned=spawnCorridorRunner();
     nextHaunt=elapsed+(spawned?30+Math.random()*20:4);
-  }
-  // Two rare exploration scares at most, separated by several minutes.
-  if(elapsed>=nextScare&&nonfatalScares<2&&!apparition&&threat>3) {
-    triggerScare(nonfatalScares===0?'nun':'crawler');
   }
 }
 function updateHud() {
@@ -258,14 +289,13 @@ function update(dt) {
   if(state==='scare') {
     scare.age+=dt;
     if(scare.age>=scare.duration) {
-      if(scare.fatal) finish('caught');
-      else {scare=null;state='play';document.body.classList.remove('scaring');}
+      scare=null;state='play';document.body.classList.remove('scaring');
     }
     return;
   }
   if(state!=='play') return;
   elapsed+=dt;time=Math.max(0,DURATION-elapsed);
-  if(time===0) {scream('nun');finish('blackout');return;}
+  if(time===0) {finish('blackout');return;}
   const pressed=(...names)=>names.some(name=>keys.has(name));
   p.a+=dt*1.9*(Number(pressed('arrowright'))-Number(pressed('arrowleft')));
   const forward=Number(pressed('z','w','arrowup'))-Number(pressed('s','arrowdown'));
@@ -274,8 +304,10 @@ function update(dt) {
   stamina=clamp(stamina+(sprinting?-23:13)*dt,0,100);
   battery=clamp(battery+(lamp?-.43:.8)*dt,0,100);
   if(moving) {
+    const before={x:p.x,y:p.y};
     const speed=(sprinting?2.45:1.42)*dt/Math.hypot(forward,sideways);
     slide(p,(Math.cos(p.a)*forward-Math.sin(p.a)*sideways)*speed,(Math.sin(p.a)*forward+Math.cos(p.a)*sideways)*speed,.2);
+    travelled+=distance(before,p);
     if(elapsed>=nextStep) {noise(sprinting?.32:.18,.16,420);nextStep=elapsed+(sprinting?.28:.47);}
   }
   const nearby=[...fuses.filter(f=>!f.taken),generator,exit,...(power&&!hasKey?[officeKey]:[])];
@@ -288,9 +320,11 @@ function update(dt) {
   updateMonsters(dt);
   if(state!=='play') return;
   haunt(dt);
+  if(state!=='play') return;
+  updateThreatMusic(dt);
   if(elapsed>nextNoise) {
-    const closest=monsters.reduce((a,b)=>distance(p,a)<distance(p,b)?a:b);
-    const bearing=Math.atan2(closest.y-p.y,closest.x-p.x)-p.a;
+    const closest=monsters.filter(m=>elapsed>=m.wake).sort((a,b)=>distance(p,a)-distance(p,b))[0];
+    const bearing=closest?Math.atan2(closest.y-p.y,closest.x-p.x)-p.a:0;
     noise(threat<6?.42:.14,1.1,threat<6?950:1900,Math.sin(bearing));
     tone(62,34,threat<6?.10:.035,.9,'triangle');
     nextNoise=elapsed+(threat<4?1.7:5+Math.random()*4);
@@ -418,7 +452,7 @@ for(const button of document.querySelectorAll('[data-key]')) {
   button.addEventListener('lostpointercapture',()=>keys.delete(key));
 }
 el('sound').addEventListener('click',()=>{
-  enabled=!enabled;if(enabled)audioReady();if(master)master.gain.value=enabled?.55:0;
+  enabled=!enabled;if(enabled)audioReady();applyAudioVolume();
   el('sound').textContent=enabled?'Son activé':'Son coupé';el('sound').setAttribute('aria-pressed',String(enabled));
 });
 el('interact').addEventListener('click',interaction);

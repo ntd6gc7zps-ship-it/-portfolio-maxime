@@ -91,14 +91,14 @@ const projectContent = {
       'Fouiller les salles, trouver trois fusibles et rétablir le courant',
       'Gérer sa lampe torche et son souffle pendant les poursuites',
       'Apercevoir des silhouettes traverser les couloirs sur une note de piano',
-      'Découvrir des screamers espacés et une ambiance sonore synthétisée'
+      'Surprendre le joueur avec deux screamers de couloir et des notes qui accompagnent les poursuites'
     ],
     liveUrl: 'derniere-seance/index.html',
     liveLabel: 'JOUER À DERNIÈRE SÉANCE ↗',
     images: [
       ['assets/derniere-seance-gameplay.jpg', 'Vue du cinéma Le Rialto pendant une partie de Dernière Séance']
     ],
-    notice: 'Jeu expérimental en HTML, Canvas et JavaScript, avec audio généré par Web Audio. Jouable sur ordinateur et mobile. Ambiance horrifique, apparitions soudaines et cris.'
+    notice: 'Jeu expérimental en HTML, Canvas et JavaScript, avec piano enregistré et bruitages créés avec Web Audio. Jouable sur ordinateur et mobile. Ambiance horrifique, apparitions soudaines et cris.'
   },
   orbit: {
     tag: '01 / APPLICATION CINÉMA — UX/UI & IDENTITÉ VISUELLE',
