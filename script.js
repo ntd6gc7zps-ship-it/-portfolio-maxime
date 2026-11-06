@@ -82,6 +82,24 @@ for (const button of filters) {
 }
 
 const projectContent = {
+  seance: {
+    tag: '04 / JEU D’HORREUR — GAME DESIGN & EXPLORATION IA',
+    title: 'Dernière Séance.',
+    intro: 'Explorer un cinéma abandonné, avec une lampe torche et huit minutes avant le black-out.',
+    concept: 'Un projet personnel de jeu en vue subjective, développé avec l’aide de l’IA. Les itérations ont porté sur le rythme de l’exploration, la lisibilité dans l’obscurité et les indices sonores. Le cinéma devient un terrain de jeu où le silence, la lumière et les apparitions entretiennent la tension.',
+    features: [
+      'Fouiller les salles, trouver trois fusibles et rétablir le courant',
+      'Gérer sa lampe torche et son souffle pendant les poursuites',
+      'Apercevoir des silhouettes traverser les couloirs sur une note de piano',
+      'Découvrir des screamers espacés et une ambiance sonore synthétisée'
+    ],
+    liveUrl: 'derniere-seance/index.html',
+    liveLabel: 'JOUER À DERNIÈRE SÉANCE ↗',
+    images: [
+      ['assets/derniere-seance-gameplay.jpg', 'Vue du cinéma Le Rialto pendant une partie de Dernière Séance']
+    ],
+    notice: 'Jeu expérimental en HTML, Canvas et JavaScript, avec audio généré par Web Audio. Jouable sur ordinateur et mobile. Ambiance horrifique, apparitions soudaines et cris.'
+  },
   orbit: {
     tag: '01 / APPLICATION CINÉMA — UX/UI & IDENTITÉ VISUELLE',
     title: 'Orbit.',
@@ -135,7 +153,7 @@ function renderProject(project) {
   document.querySelector('#dialog-concept').textContent = project.concept;
   document.querySelector('#dialog-notice').textContent = project.notice;
   const live = document.querySelector('#dialog-live');
-  if(live){live.hidden=!project.liveUrl; if(project.liveUrl){live.href=project.liveUrl;live.textContent=project.title.toLowerCase().includes('orbit')?'TESTER ORBIT EN DIRECT ↗':'ESSAYER MOOD.FM EN DIRECT ↗';}}
+  if(live){live.hidden=!project.liveUrl; if(project.liveUrl){live.href=project.liveUrl;live.textContent=project.liveLabel || (project.title.toLowerCase().includes('orbit')?'TESTER ORBIT EN DIRECT ↗':'ESSAYER MOOD.FM EN DIRECT ↗');}}
   const caseLink = document.querySelector('#dialog-case');if(caseLink){caseLink.hidden=!project.caseUrl;if(project.caseUrl)caseLink.href=project.caseUrl;}
   const features = document.querySelector('#dialog-features');
   features.replaceChildren(...project.features.map(label => {
@@ -143,6 +161,7 @@ function renderProject(project) {
   }));
   const gallery = document.querySelector('#dialog-gallery');
   gallery.classList.toggle('mood-preview',project.title==='Mood.fm.');
+  gallery.classList.toggle('seance-preview',project.title==='Dernière Séance.');
   gallery.replaceChildren(...project.images.map(([src, alt]) => {
     const img = document.createElement('img');
     img.src = src;
