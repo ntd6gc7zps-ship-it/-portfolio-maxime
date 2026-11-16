@@ -82,3 +82,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
 .underlined-link{font-family:var(--mono);font-size:10px}
 .motion-icon{display:block;width:9px;height:11px;font-size:0;border-left:2px solid currentColor;border-right:2px solid currentColor}
 .motion-toggle[aria-pressed="false"] .motion-icon{width:0;height:0;border:5px solid transparent;border-left:8px solid currentColor;border-right:0}
+
+/* Terminal typography: expressive headings, readable body copy. */
+.matrix-theme{--display:'Share Tech Mono','Courier New',monospace;font-family:'IBM Plex Mono','Courier New',monospace}
+.matrix-theme h1,.matrix-theme h2,.matrix-theme h3,.matrix-theme .brand-symbol,.matrix-theme .footer-mark,.matrix-theme .project-meta strong{font-family:var(--display);font-weight:400}
+.matrix-theme .hero h1{font-size:clamp(46px,5.7vw,82px);letter-spacing:-.055em;line-height:1.1}
+.matrix-theme .hero-lastline{text-shadow:0 0 24px #80ff5540}
+.matrix-theme .hero-description{font-size:14px;line-height:1.85;max-width:565px}
+.matrix-theme .heading-row h2{letter-spacing:-.055em}
+.matrix-theme .matrix-globe-hint{bottom:9px;font-size:8px}
+.matrix-theme .hero-stage.matrix-stage{max-width:450px}
+@media(max-width:1160px){.matrix-theme .hero h1{font-size:clamp(40px,5.5vw,66px)}}
+@media(max-width:900px){.matrix-theme .hero h1{font-size:clamp(35px,5.2vw,49px)}.matrix-theme .hero-description{font-size:12px}}
+@media(max-width:700px){.matrix-theme .hero h1{font-size:clamp(34px,8.5vw,57px)}.matrix-theme .hero-description{font-size:13px}.matrix-theme .hero-stage.matrix-stage{max-width:none;height:415px}.matrix-theme .heading-row h2{font-size:clamp(33px,8.2vw,51px)}.matrix-theme .ai-copy h2{font-size:clamp(29px,7.3vw,44px)}}
