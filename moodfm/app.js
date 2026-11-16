@@ -17,7 +17,9 @@ const moodThemes = {
   pluie:    {a:'#80a7ff', b:'#c2c7ff', c:'#152039', d:'#eef4ff', icon:'☂'},
   soiree:   {a:'#ff7bc8', b:'#ffb36d', c:'#2b1321', d:'#fff0f8', icon:'✺'}
 };
-let currentMood = 'chill', visible = 48, filtered = [], lastSignature = '', saved = [];
+const PAGE_SIZE = 8;
+let page = 0;
+let currentMood = 'chill', visible = PAGE_SIZE, filtered = [], lastSignature = '', saved = [];
 let selectedTrackId = null;
 let visualAnimationActive = true;
 
@@ -192,16 +194,18 @@ function makeTrack(t, i){
   btn.addEventListener('click', () => { selectTrack(t); showDetails(t); });
   return btn;
 }
-function renderTracks(full = true){
-  if (full) list.replaceChildren();
-  const start = full ? 0 : list.childElementCount;
-  const to = Math.min(filtered.length, visible);
-  const frag = document.createDocumentFragment();
-  for (let i = start; i < to; i++) frag.appendChild(makeTrack(filtered[i], i));
-  list.appendChild(frag);
-  loadMore.hidden = true;
-  loadMore.textContent = 'Tous les titres affichés';
-  if (libraryVisible) libraryVisible.textContent = String(Math.min(filtered.length, visible));
+function renderTracks(){
+  const pages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  page = Math.min(Math.max(0, page), pages - 1);
+  const start = page * PAGE_SIZE, end = Math.min(start + PAGE_SIZE, filtered.length);
+  list.replaceChildren(...filtered.slice(start, end).map((track, i) => makeTrack(track, start + i)));
+  if (!filtered.length) { const empty=document.createElement('p');empty.className='tracks-empty';empty.textContent='Aucun morceau trouvé. Essaie un autre titre ou artiste.';list.append(empty); }
+  loadMore.hidden=false;loadMore.disabled=page >= pages-1;loadMore.textContent='Suivant →';
+  byId('page-previous').disabled=page===0;
+  byId('page-status').textContent=filtered.length ? 'Page '+(page+1)+' / '+pages : 'Aucun résultat';
+  summary.textContent=filtered.length ? filtered.length+' titres · '+(start+1)+'–'+end+' affichés' : 'Aucun titre';
+  if (libraryVisible) libraryVisible.textContent=String(end-start);
+  if (selectedTrackId) list.querySelectorAll('.track-row').forEach(btn=>btn.classList.toggle('selected-track',btn.dataset.id===selectedTrackId));
   applyPortraits();
 }
 function getArtistPicks(){
@@ -254,7 +258,7 @@ function renderArtistGrid(){
 }
 function updatePlaylist(changed = true){
   const sig = currentSignature(); if (sig === lastSignature) return; lastSignature = sig;
-  updateRangeOutputs(); filtered = getRecommended(); visible = filtered.length;
+  updateRangeOutputs(); filtered = getRecommended(); page = 0; visible = PAGE_SIZE;
   byId('playlist-title').textContent = moodNames[currentMood];
   summary.textContent = `${filtered.length} titres réels · artistes authentiques · ajustement instantané`;
   byId('updated-status').textContent = changed ? '✦ Playlist actualisée' : '♪ Recherche en direct';
@@ -286,12 +290,11 @@ document.querySelectorAll('.step').forEach(btn => btn.addEventListener('click', 
   el.dispatchEvent(new Event('input', {bubbles: true}));
 }));
 function loadNext(){
-  if (list.childElementCount >= filtered.length) return;
-  visible = Math.min(visible + 24, filtered.length);
-  renderTracks(false);
-  summary.textContent = `${filtered.length} titres disponibles · ${list.childElementCount} affichés · ajustement instantané`;
+  if ((page + 1) * PAGE_SIZE >= filtered.length) return;
+  page++; renderTracks(); syncNoteSkyHeight();
 }
-// Liste complète dès le départ : pas d'append au scroll, pas de saut de mise en page.
+loadMore.addEventListener('click', loadNext);
+byId('page-previous').addEventListener('click',()=>{if(page>0){page--;renderTracks();syncNoteSkyHeight();}});
 function showDetails(t){
   byId('detail-title').textContent = t.title;
   byId('detail-artist').textContent = t.artist;

@@ -15,12 +15,13 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Share+Tech+Mono&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <script>document.documentElement.classList.replace('no-js','js');</script>
-  <link rel="stylesheet" href="theme.css?v=20261116-3">
-<script src="app.js?v=20261116-3" defer></script>
-<script src="orbit-previews.js?v=20261116-3" defer></script>
+  <link rel="stylesheet" href="theme.css?v=20261116-4">
+<script src="app.js?v=20261116-4" defer></script>
+<script src="orbit-previews.js?v=20261116-4" defer></script>
 </head>
 <body class="matrix-theme">
   <a class="skip-link" href="#main">Aller au contenu principal</a>
+  <canvas id="matrix-cursor" aria-hidden="true"></canvas>
   <canvas id="matrix-rain" aria-hidden="true"></canvas><div class="matrix-veil" aria-hidden="true"></div>
 <div id="scroll-progress" class="scroll-progress" aria-hidden="true"></div>
   <!-- Animated starfield / orbital glows: decorative, never block pointer interaction -->
@@ -88,23 +89,23 @@
         <div class="terminal-column-head" aria-hidden="true"><span>ID</span><span>APERÇU</span><span>PROJET / DOMAINE</span><span>ACCÈS</span></div>
         <div class="project-grid terminal-list">
         <article class="project-card terminal-row" data-categories="ux branding">
-          <button class="project-trigger terminal-open" type="button" data-project="orbit" aria-label="Découvrir Orbit">
+          <div class="project-trigger terminal-open">
             <span class="terminal-index" aria-hidden="true">01</span>
-            <span class="terminal-thumb terminal-thumb-orbit"><img src="../assets/orbit-home-card.webp" alt="Interface de l’application Orbit" width="192" height="140" loading="lazy"></span>
-            <span class="terminal-project-copy"><span class="terminal-project-tags">UX/UI · BRANDING</span><strong>Orbit</strong><span class="terminal-project-desc">Le cinéma comme un voyage spatial.</span></span>
+            <span class="terminal-thumb terminal-thumb-orbit terminal-live-thumb" role="img" aria-label="Aperçu en direct de Orbit"><iframe src="../orbit/index.html#/home" title="Interface actuelle de Orbit" loading="lazy" tabindex="-1" aria-hidden="true" inert></iframe><span class="terminal-live-badge" aria-hidden="true">LIVE</span></span>
+            <button class="terminal-project-copy" type="button" data-project="orbit" aria-label="Découvrir Orbit"><span class="terminal-project-tags">UX/UI · BRANDING</span><strong>Orbit</strong><span class="terminal-project-desc">Le cinéma comme un voyage spatial.</span></button>
             <span class="terminal-open-mark" aria-hidden="true">[ + ]</span>
-          </button>
+          </div>
           <div class="terminal-row-actions">
             <a href="../projets/orbit.html" target="_blank" rel="noopener noreferrer" aria-label="Étude de cas — Orbit, nouvel onglet">Étude de cas <span aria-hidden="true">↗</span></a>
           </div>
         </article>
         <article class="project-card terminal-row" data-categories="ux ai">
-          <button class="project-trigger terminal-open" type="button" data-project="mood" aria-label="Découvrir Mood.fm">
+          <div class="project-trigger terminal-open">
             <span class="terminal-index" aria-hidden="true">02</span>
-            <span class="terminal-thumb terminal-thumb-mood"><img src="../assets/mood-current-studio.webp" alt="Studio de création de playlists Mood.fm" width="192" height="140" loading="lazy"></span>
-            <span class="terminal-project-copy"><span class="terminal-project-tags">UX/UI · EXPLORATION IA</span><strong>Mood.fm</strong><span class="terminal-project-desc">Des playlists à l’image de ton humeur.</span></span>
+            <span class="terminal-thumb terminal-thumb-mood terminal-live-thumb" role="img" aria-label="Aperçu en direct de Mood.fm"><iframe src="../moodfm/index.html?preview=1#studio" title="Interface actuelle de Mood.fm" loading="lazy" tabindex="-1" aria-hidden="true" inert></iframe><span class="terminal-live-badge" aria-hidden="true">LIVE</span></span>
+            <button class="terminal-project-copy" type="button" data-project="mood" aria-label="Découvrir Mood.fm"><span class="terminal-project-tags">UX/UI · EXPLORATION IA</span><strong>Mood.fm</strong><span class="terminal-project-desc">Des playlists à l’image de ton humeur.</span></button>
             <span class="terminal-open-mark" aria-hidden="true">[ + ]</span>
-          </button>
+          </div>
           <div class="terminal-row-actions">
             <a href="../projets/moodfm.html" target="_blank" rel="noopener noreferrer" aria-label="Étude de cas — Mood.fm, nouvel onglet">Étude de cas <span aria-hidden="true">↗</span></a>
             <a href="../moodfm/index.html" target="_blank" rel="noopener noreferrer" aria-label="Tester Mood.fm, nouvel onglet">Tester l’app <span aria-hidden="true">↗</span></a>

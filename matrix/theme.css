@@ -169,3 +169,15 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{
  .terminal-row-actions a{font-size:8px;min-height:32px;gap:10px}
  .terminal-statusbar{padding:11px 12px;font-size:8px;flex-wrap:wrap;gap:5px}
 }
+
+#matrix-cursor{position:fixed;inset:0;width:100%;height:100%;z-index:150;pointer-events:none}
+@media(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){#matrix-cursor{display:none}}
+
+/* Actual interfaces are used as non-interactive thumbnails, so previews stay current. */
+button.terminal-project-copy{padding:0;border:0;background:none;color:inherit;text-align:left;width:100%;cursor:pointer}
+button.terminal-project-copy:hover strong{color:#b8ff9b}
+.terminal-live-thumb{isolation:isolate;background:#100c1a}
+.terminal-live-thumb iframe{display:block;position:absolute;left:0;top:0;width:1000px;height:724px;border:0;transform:scale(.094);transform-origin:0 0;pointer-events:none}
+.terminal-live-badge{position:absolute;right:2px;bottom:2px;z-index:1;padding:2px 3px;background:#07100ddd;border:1px solid #447653;color:#b6ffa6;font:5px var(--mono);letter-spacing:.03em}
+@media(max-width:900px){.terminal-live-thumb iframe{transform:scale(.076);height:816px}}
+@media(max-width:600px){.terminal-live-thumb iframe{transform:scale(.054);height:1038px}.terminal-live-badge{font-size:4px}}

@@ -230,3 +230,123 @@ a,button,input{font-family:inherit}
 @media(prefers-reduced-motion:reduce){.float-note,.track-row{animation:none!important}}
 
 .artist-credit-link{display:inline-block;margin:10px 10px 2px 0;color:#f4c4d7;font-size:12px;text-decoration:underline;text-underline-offset:3px}
+
+/* Compact studio: eight tracks per page; extra discovery stays optional. */
+.intro{min-height:0;display:block;padding:24px 0 12px}
+.intro-copy{padding:0;display:grid;grid-template-columns:auto 1fr;gap:8px 28px;align-items:center}
+.intro-copy .eyebrow{grid-column:1/-1;font-size:8px;letter-spacing:.12em}
+.intro h1{font-size:37px;line-height:1.15;margin:4px 0}
+.intro h1 br{display:none}
+.intro-copy>p{font-size:12px;line-height:1.7;margin:0;max-width:590px}
+.intro .hero-art,.intro .primary-link,.intro .hero-meta{display:none}
+.music-premium-label{height:22px;font-size:8px}
+.topbar{height:65px}
+.studio{padding-top:20px}
+.section-header{margin:10px 0 18px}
+.section-header h2{font-size:30px;margin-bottom:6px}
+.section-header p{font-size:12px}
+.studio-layout{grid-template-columns:minmax(265px,.7fr) minmax(0,1.8fr);gap:18px}
+.controls,.playlist-panel{padding:20px;border-radius:18px;min-width:0}
+.playlist-panel{min-height:0}
+.control-top h3{font-size:19px;margin-bottom:4px}
+.control-top p{font-size:11px}
+.mood-pills{gap:6px;margin:15px 0 17px}
+.mood-pills button{padding:9px 11px;font-size:11px;min-height:36px}
+.settings-label{padding-top:15px;margin-bottom:17px;font-size:9px;letter-spacing:.1em}
+.range-setting{margin-bottom:15px}
+.range-head{margin-bottom:7px}.range-head label{font-size:12px}.range-head output{font-size:12px}
+.step{min-width:34px;height:34px;border-radius:10px}
+.range-foot{font-size:9px}
+.control-footer{display:none}
+.artist-board{margin-top:18px;padding:0;border-radius:12px}
+.artist-board summary{cursor:pointer;display:flex;justify-content:space-between;gap:10px;padding:13px;font-size:12px;font-weight:700;list-style:none}
+.artist-board summary::-webkit-details-marker{display:none}
+.artist-board summary span{font-size:10px;color:var(--accent)}
+.artist-board[open] summary span{font-size:0}
+.artist-board[open] summary span:after{content:'Fermer';font-size:10px}
+.artist-board>div{margin:12px}
+.artist-board-head h4{font-size:20px}
+.artist-board-head p{font-size:11px}
+.artist-stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.artist-stats>div{padding:8px;border-radius:9px}
+.artist-stats span{font-size:8px;letter-spacing:0}
+.artist-grid{grid-template-columns:1fr;gap:8px}
+.artist-card{grid-template-columns:52px minmax(0,1fr);padding:8px;border-radius:10px;gap:8px}
+.artist-art{height:52px;border-radius:8px}
+.artist-badge{display:none}
+.artist-copy strong{font-size:12px;margin-bottom:3px}
+.artist-copy small,.artist-copy em{font-size:10px;margin-top:3px}
+.playlist-head{gap:12px;align-items:center}
+.playlist-logo{width:48px;height:48px;font-size:25px;border-radius:13px}
+.playlist-head h3{font-size:27px;margin:4px 0}
+.playlist-label{font-size:8px;letter-spacing:.1em}
+.playlist-summary{font-size:10px}
+.save-button{padding:10px 12px;font-size:10px}
+.playlist-tools{margin:16px 0 12px;gap:10px}
+.search{padding:9px 12px}
+.updated{font-size:10px}
+.tracks{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.track-row{min-height:68px;padding:8px;gap:9px;border-radius:11px}
+.track-cover{width:46px;height:46px;border-radius:9px}
+.track-cover-tag,.track-cover-icon,.track-duration i,.track-meta{display:none}
+.track-text strong{font-size:12px}
+.track-text small{font-size:10px;margin-top:4px}
+.track-duration{min-width:12px}
+.tracks-empty{grid-column:1/-1;padding:24px 0;color:var(--secondary);font-size:13px}
+.playlist-pagination{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-top:16px}
+.playlist-pagination button{padding:9px 13px;font-size:11px;border-radius:10px;min-height:38px}
+.playlist-pagination button:disabled{opacity:.35;cursor:default}
+.playlist-pagination>span{font-size:11px;color:var(--secondary)}
+.discover{padding:32px 0}
+.discover .mood-cards{display:none}
+.discover .section-header h2{font-size:25px}
+.saved-area{margin-top:14px;padding:18px 22px;border-radius:16px}
+.footer{padding-top:25px;padding-bottom:100px}
+html.portfolio-preview{scroll-behavior:auto}
+.portfolio-preview .topbar,.portfolio-preview .music-premium-label,.portfolio-preview .intro,.portfolio-preview .discover,.portfolio-preview .footer,.portfolio-preview .mood-return-floating,.portfolio-preview .note-sky{display:none}
+.portfolio-preview .studio{padding-top:20px}
+.portfolio-preview .wrap{width:calc(100% - 48px)}
+.portfolio-preview .artist-board{display:none}
+@media(max-width:1100px) and (min-width:851px){.tracks{grid-template-columns:1fr}.track-row{min-height:60px}.track-cover{width:42px;height:42px}.updated{display:none}}
+@media(max-width:850px){
+ .intro-copy{grid-template-columns:1fr;gap:6px}
+ .intro h1{font-size:32px}
+ .studio-layout{grid-template-columns:1fr}
+ .controls{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+ .control-top,.mood-pills,.settings-label,.artist-board{grid-column:1/-1}
+ .mood-pills{margin:0}.settings-label{padding-top:12px;margin-bottom:0}
+ .range-setting{margin:0;min-width:0}.range-with-step{gap:6px}
+ .range-head{flex-wrap:wrap}.mini{display:none}
+ .range-foot{margin-inline:0}.artist-board{margin-top:0}
+ .tracks{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .controls,.playlist-panel{padding:17px}
+ .artist-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:550px){
+ .topbar,.wrap{width:calc(100% - 28px)}
+ .topbar{gap:12px;height:60px}.topbar nav{gap:12px}
+ .topbar .avatar,.topbar .nav-portfolio{display:none}
+ .intro{padding-top:16px}.intro h1{font-size:29px}.intro-copy>p{font-size:11px}
+ .section-header{gap:10px}.section-header h2{font-size:25px}
+ .live-indicator{display:none}
+ .controls{grid-template-columns:1fr;gap:12px}
+ .range-setting{display:grid;grid-template-columns:115px minmax(0,1fr);align-items:center;gap:8px}
+ .range-head{display:grid;gap:3px;margin:0}.range-head label{font-size:11px}
+ .range-foot{display:none}
+ .mood-pills button{padding:8px 10px;font-size:10px}
+ .tracks{grid-template-columns:1fr}
+ .track-row{min-height:60px}
+ .track-cover{width:42px;height:42px}
+ .playlist-head{flex-wrap:nowrap;gap:9px}
+ .playlist-head h3{font-size:22px}
+ .save-button{width:auto;margin-left:auto;padding:9px;font-size:9px}
+ .playlist-logo{display:none}
+ .playlist-tools{flex-wrap:wrap;margin:12px 0}
+ .updated{display:none}
+ .artist-grid{grid-template-columns:1fr}
+ .playlist-pagination button{font-size:10px;padding:9px}
+ .playlist-pagination>span{font-size:10px}
+ .saved-area{padding:15px;gap:12px}
+}
+
+.intro h1 em{margin-left:.15em}
