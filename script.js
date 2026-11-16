@@ -83,7 +83,7 @@ for (const button of filters) {
 
 const projectContent = {
   seance: {
-    tag: '04 / JEU D’HORREUR — GAME DESIGN & EXPLORATION IA',
+    tag: '03 / JEU D’HORREUR — GAME DESIGN & EXPLORATION IA',
     title: 'Dernière Séance.',
     intro: 'Explorer un cinéma abandonné, avec une lampe torche et huit minutes avant le black-out.',
     concept: 'Un projet personnel de jeu en vue subjective, développé avec l’aide de l’IA. Les itérations ont porté sur le rythme de l’exploration, la lisibilité dans l’obscurité et les indices sonores. Le cinéma devient un terrain de jeu où le silence, la lumière et les apparitions entretiennent la tension.',
