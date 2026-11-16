@@ -15,9 +15,9 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Share+Tech+Mono&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../styles.css">
   <script>document.documentElement.classList.replace('no-js','js');</script>
-  <link rel="stylesheet" href="theme.css?v=20261116-2">
-<script src="app.js?v=20261116-2" defer></script>
-<script src="orbit-previews.js?v=20261116-2" defer></script>
+  <link rel="stylesheet" href="theme.css?v=20261116-3">
+<script src="app.js?v=20261116-3" defer></script>
+<script src="orbit-previews.js?v=20261116-3" defer></script>
 </head>
 <body class="matrix-theme">
   <a class="skip-link" href="#main">Aller au contenu principal</a>
@@ -69,82 +69,73 @@
 <span>UX DESIGN</span><b>+</b><span>UI DESIGN</span><b>+</b><span>IDENTITÉ VISUELLE</span><b>+</b><span>FIGMA</span><b>+</b><span>PROTOTYPAGE</span><b>+</b><span>EXPÉRIMENTATION IA</span><b>+</b><span>UX DESIGN</span><b>+</b><span>UI DESIGN</span><b>+</b><span>IDENTITÉ VISUELLE</span><b>+</b><span>FIGMA</span><b>+</b><span>PROTOTYPAGE</span><b>+</b><span>EXPÉRIMENTATION IA</span><b>+</b>
 </div></div>
 
-    <section class="section projects container" id="projets" aria-labelledby="projects-title">
-      <div class="section-head" data-reveal>
-<p class="section-number"><span>01</span> / PROJETS SÉLECTIONNÉS</p>
-<div class="heading-row">
-<h2 id="projects-title">PROJETS <span>CHOISIS.</span>
-</h2>
-<p>Une sélection de concepts, interfaces et expériences, de la recherche UX à la direction artistique.</p>
-</div>
-</div>
-      <div class="project-filters" aria-label="Filtrer les projets" role="group" data-reveal>
-        <button class="filter-chip is-active" data-filter="all" type="button" aria-pressed="true">TOUS <span>04</span></button>
-        <button class="filter-chip" data-filter="ux" type="button" aria-pressed="false">UX / UI <span>04</span></button>
-        <button class="filter-chip" data-filter="ai" type="button" aria-pressed="false">IA &amp; EXPÉRIMENTATION <span>02</span></button>
-        <button class="filter-chip" data-filter="branding" type="button" aria-pressed="false">BRANDING <span>02</span></button>
+    <section class="section projects container terminal-projects" id="projets" aria-labelledby="projects-title">
+      <div class="terminal-section-heading">
+        <div><p class="section-number"><span>01</span> / EXPLORATEUR DE PROJETS</p><h2 id="projects-title">MES <span>PROJETS_</span></h2></div>
+        <p>Quatre univers. Un même goût pour l’exploration.<br>Ouvre un dossier pour découvrir le projet.</p>
       </div>
-      <div class="project-grid">
-        <article class="project-card project-card-featured" data-categories="ux branding" data-reveal>
-          <button class="project-trigger" type="button" data-project="orbit" aria-label="Découvrir le projet Orbit">
-            <span class="project-art orbit-art">
-              <span class="project-art-grain"></span>
-              <span class="orbit-art-caption">01 / CINEMA REINVENTED</span>
-              <span class="orbit-art-title">ORBIT<span class="orbit-art-dot">.</span></span>
-              <span class="orbit-sphere" aria-hidden="true"></span><span class="orbit-sphere-ring" aria-hidden="true"></span>
-              <img class="orbit-mockup orbit-mockup-front" src="../assets/orbit-home-card.webp" loading="lazy" width="248" height="515" alt="Aperçu Orbit avec posters de films correspondants">
-              <img class="orbit-mockup orbit-mockup-back" src="../assets/orbit-snacks-card.webp" loading="lazy" width="246" height="515" alt="Aperçu Orbit snacks avec rappel des films correspondants">
-              <span class="art-bottom-label">CHAQUE FILM EST UNE NOUVELLE PLANÈTE À DÉCOUVRIR</span>
-            </span>
-            <span class="project-meta"><span><span class="project-count">PROJECT 01 <span>●</span> UX/UI · BRANDING</span><strong>Orbit</strong><small>Le cinéma comme un voyage spatial.</small></span><span class="project-go" aria-hidden="true">↗</span></span>
+      <div class="project-terminal">
+        <div class="terminal-titlebar"><span class="terminal-window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>maxime@portfolio <b>~/projets</b></span><span class="terminal-online"><i aria-hidden="true"></i> EN LIGNE</span></div>
+        <div class="terminal-toolbar">
+          <div class="project-filters" aria-label="Filtrer les projets" role="group">
+            <button class="filter-chip is-active" data-filter="all" type="button" aria-pressed="true">TOUS <span>04</span></button>
+            <button class="filter-chip" data-filter="ux" type="button" aria-pressed="false">UX / UI <span>04</span></button>
+            <button class="filter-chip" data-filter="ai" type="button" aria-pressed="false">IA <span>02</span></button>
+            <button class="filter-chip" data-filter="branding" type="button" aria-pressed="false">BRANDING <span>02</span></button>
+          </div>
+          <span class="terminal-directory-label" aria-hidden="true">INDEX / 2026</span>
+        </div>
+        <div class="terminal-column-head" aria-hidden="true"><span>ID</span><span>APERÇU</span><span>PROJET / DOMAINE</span><span>ACCÈS</span></div>
+        <div class="project-grid terminal-list">
+        <article class="project-card terminal-row" data-categories="ux branding">
+          <button class="project-trigger terminal-open" type="button" data-project="orbit" aria-label="Découvrir Orbit">
+            <span class="terminal-index" aria-hidden="true">01</span>
+            <span class="terminal-thumb terminal-thumb-orbit"><img src="../assets/orbit-home-card.webp" alt="Interface de l’application Orbit" width="192" height="140" loading="lazy"></span>
+            <span class="terminal-project-copy"><span class="terminal-project-tags">UX/UI · BRANDING</span><strong>Orbit</strong><span class="terminal-project-desc">Le cinéma comme un voyage spatial.</span></span>
+            <span class="terminal-open-mark" aria-hidden="true">[ + ]</span>
           </button>
-          <a class="project-demo-link" href="../projets/orbit.html" aria-label="Voir l'étude de cas Orbit et ses mockups" target="_blank" rel="noopener noreferrer">DÉCOUVRIR L’ÉTUDE DE CAS ORBIT <span aria-hidden="true">↗</span></a>
+          <div class="terminal-row-actions">
+            <a href="../projets/orbit.html" target="_blank" rel="noopener noreferrer" aria-label="Étude de cas — Orbit, nouvel onglet">Étude de cas <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="project-card project-card-featured" data-categories="ux ai" data-reveal>
-          <button class="project-trigger" type="button" data-project="mood" aria-label="Découvrir le projet Mood.fm">
-            <span class="project-art mood-art">
-              <span class="mood-aura"></span><span class="mood-aura mood-aura-2"></span>
-              <span class="mood-art-caption">02 / MUSIQUE &amp; ÉMOTIONS</span><span class="mood-art-title">mood<span>.</span>fm</span>
-              <span class="mood-equalizer" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>
-              <img class="mood-interface mood-interface-main" src="../assets/mood-current-studio.webp" loading="lazy" width="480" height="298" alt="Maquette desktop Mood.fm, playlist Chill du soir">
-              <img class="mood-interface mood-interface-mobile" src="../assets/mood-current-mobile.webp" loading="lazy" width="272" height="586" alt="Maquette mobile de l'accueil Mood.fm">
-              <span class="mood-art-footer">CHOISIS TON AMBIANCE. LE RESTE SUIT.</span>
-            </span>
-            <span class="project-meta"><span><span class="project-count">PROJECT 02 <span>●</span> UX/UI · EXPLORATION IA</span><strong>Mood.fm</strong><small>Des playlists à l'image de ton humeur.</small></span><span class="project-go" aria-hidden="true">↗</span></span>
+        <article class="project-card terminal-row" data-categories="ux ai">
+          <button class="project-trigger terminal-open" type="button" data-project="mood" aria-label="Découvrir Mood.fm">
+            <span class="terminal-index" aria-hidden="true">02</span>
+            <span class="terminal-thumb terminal-thumb-mood"><img src="../assets/mood-current-studio.webp" alt="Studio de création de playlists Mood.fm" width="192" height="140" loading="lazy"></span>
+            <span class="terminal-project-copy"><span class="terminal-project-tags">UX/UI · EXPLORATION IA</span><strong>Mood.fm</strong><span class="terminal-project-desc">Des playlists à l’image de ton humeur.</span></span>
+            <span class="terminal-open-mark" aria-hidden="true">[ + ]</span>
           </button>
-          <div class="project-demo-actions">
-<a class="project-demo-link" href="../projets/moodfm.html" aria-label="Voir l'étude de cas Mood.fm" target="_blank" rel="noopener noreferrer">VOIR LE PROJET MOOD.FM <span aria-hidden="true">↗</span></a><a class="project-demo-link demo-secondary" href="../moodfm/index.html" aria-label="Tester Mood.fm interactif avec playlist longue" target="_blank" rel="noopener noreferrer">TESTER L’APP ↗</a>
-</div>
+          <div class="terminal-row-actions">
+            <a href="../projets/moodfm.html" target="_blank" rel="noopener noreferrer" aria-label="Étude de cas — Mood.fm, nouvel onglet">Étude de cas <span aria-hidden="true">↗</span></a>
+            <a href="../moodfm/index.html" target="_blank" rel="noopener noreferrer" aria-label="Tester Mood.fm, nouvel onglet">Tester l’app <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="project-card" data-categories="ux ai" data-reveal>
-          <button class="project-trigger" type="button" data-project="seance" aria-label="Découvrir le projet Dernière Séance">
-            <span class="project-art seance-art">
-              <img class="seance-cover" src="../assets/derniere-seance-gameplay.jpg" width="1365" height="936" loading="lazy" alt="Couloir du cinéma Le Rialto dans Dernière Séance, éclairé à la lampe torche">
-              <span class="seance-shade" aria-hidden="true"></span>
-              <span class="seance-kicker">03 / EXPÉRIENCE INTERACTIVE</span>
-              <span class="seance-title">Dernière<br><em>Séance</em></span>
-              <span class="seance-caption">UN CINÉMA. UNE LAMPE. UNE ISSUE.</span>
-              <span class="seance-badge">JEU JOUABLE</span>
-            </span>
-            <span class="project-meta"><span><span class="project-count">PROJECT 03 <span>●</span> GAME DESIGN · EXPLORATION IA</span><strong>Dernière Séance</strong><small>Créer la tension dans un cinéma abandonné.</small></span><span class="project-go" aria-hidden="true">↗</span></span>
+        <article class="project-card terminal-row" data-categories="ux ai">
+          <button class="project-trigger terminal-open" type="button" data-project="seance" aria-label="Découvrir Dernière Séance">
+            <span class="terminal-index" aria-hidden="true">03</span>
+            <span class="terminal-thumb terminal-thumb-seance"><img src="../assets/derniere-seance-gameplay.jpg" alt="Couloir sombre du cinéma de Dernière Séance" width="192" height="140" loading="lazy"></span>
+            <span class="terminal-project-copy"><span class="terminal-project-tags">GAME DESIGN · EXPLORATION IA</span><strong>Dernière Séance</strong><span class="terminal-project-desc">Créer la tension dans un cinéma abandonné.</span></span>
+            <span class="terminal-open-mark" aria-hidden="true">[ + ]</span>
           </button>
-          <a class="project-demo-link" href="../derniere-seance/index.html" aria-label="Jouer à Dernière Séance" target="_blank" rel="noopener noreferrer">JOUER À DERNIÈRE SÉANCE <span aria-hidden="true">↗</span></a>
+          <div class="terminal-row-actions">
+            <a href="../derniere-seance/index.html" target="_blank" rel="noopener noreferrer" aria-label="Jouer — Dernière Séance, nouvel onglet">Jouer <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
-        <article class="project-card" data-categories="ux branding" data-reveal>
-          <a class="project-trigger" href="../projets/apwap.html" aria-label="Découvrir l'étude de cas APWAP" target="_blank" rel="noopener noreferrer">
-            <span class="project-art apwap-art apwap-art-real">
-              <img class="apwap-cover-photo" src="../assets/apwap-cover.webp" width="805" height="725" loading="lazy" alt="Identité APWAP : portrait d'un chien aux lumières dorées sur fond noir">
-              <span class="apwap-cover-shade" aria-hidden="true"></span>
-              <span class="apwap-art-kicker">04 / IDENTITÉ VISUELLE</span>
-              <span class="apwap-cover-wordmark">APWAP</span>
-              <span class="apwap-cover-caption">L'ÉLÉGANCE AU SERVICE DE NOS COMPAGNONS.</span>
-              <span class="apwap-asset-preview"><img src="../assets/apwap-branding.webp" alt="" loading="lazy"></span>
-            </span>
-            <span class="project-meta"><span><span class="project-count">PROJECT 04 <span>●</span> BRANDING · DIRECTION ARTISTIQUE</span><strong>APWAP</strong><small>Une identité premium autour de l'univers animalier.</small></span><span class="project-go" aria-hidden="true">↗</span></span>
+        <article class="project-card terminal-row" data-categories="ux branding">
+          <a class="project-trigger terminal-open" href="../projets/apwap.html" target="_blank" rel="noopener noreferrer" aria-label="Découvrir APWAP — étude de cas, nouvel onglet">
+            <span class="terminal-index" aria-hidden="true">04</span>
+            <span class="terminal-thumb terminal-thumb-apwap"><img src="../assets/apwap-cover.webp" alt="Identité APWAP et portrait d’un chien" width="192" height="140" loading="lazy"></span>
+            <span class="terminal-project-copy"><span class="terminal-project-tags">BRANDING · DIRECTION ARTISTIQUE</span><strong>APWAP</strong><span class="terminal-project-desc">Une identité visuelle autour de l’univers animalier.</span></span>
+            <span class="terminal-open-mark" aria-hidden="true">[ ↗ ]</span>
           </a>
+          <div class="terminal-row-actions">
+            <a href="../projets/apwap.html" target="_blank" rel="noopener noreferrer" aria-label="Étude de cas — APWAP, nouvel onglet">Étude de cas <span aria-hidden="true">↗</span></a>
+          </div>
         </article>
+        </div>
+        <div id="empty-filter" class="empty-filter" hidden>Aucun projet pour cette catégorie.</div>
+        <div class="terminal-statusbar"><span id="terminal-count" role="status" aria-live="polite">4 projets affichés</span><span><span aria-hidden="true">&gt;_</span> Sélectionne un projet pour l’explorer</span></div>
       </div>
-      <div id="empty-filter" class="empty-filter" hidden>Aucun projet pour cette catégorie.</div>
       <div class="more-projects" data-reveal>
 <span>AUTRES PROJETS À EXPLORER</span><div>
 <a href="https://maximehamer.framer.website/projects/every-second" target="_blank" rel="noopener noreferrer">Doitbolder ↗</a><a href="https://maximehamer.framer.website/projects/timeless-mastery" target="_blank" rel="noopener noreferrer">SpaceX ↗</a>

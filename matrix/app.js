@@ -78,6 +78,8 @@ for (const button of filters) {
       if (match) visible++;
     });
     if (noResults) noResults.hidden = visible > 0;
+    const count = document.querySelector('#terminal-count');
+    if (count) count.textContent = `${visible} projet${visible === 1 ? '' : 's'} affiché${visible === 1 ? '' : 's'}`;
   });
 }
 
@@ -228,19 +230,19 @@ if (dialog && typeof dialog.showModal === 'function') {
     const box = globe.getBoundingClientRect(); gw = Math.max(1, box.width); gh = Math.max(1, box.height);
     canvasSize(globe, g, gw, gh);
     seed = 747;
-    streams = Array.from({ length:Math.ceil(width/24) }, (_, i) => ({ x:i*24+8, offset:random()*(height+420), speed:18+random()*42, length:9+Math.floor(random()*12), key:Math.floor(random()*997) }));
+    streams = Array.from({ length:Math.ceil(width/18) }, (_, i) => ({ x:i*18+8, offset:random()*(height+420), speed:18+random()*42, length:12+Math.floor(random()*15), key:Math.floor(random()*997) }));
     draw();
   }
   function drawRain() {
     r.clearRect(0,0,width,height);
-    r.font = '13px "IBM Plex Mono", monospace';
+    r.font = '14px "IBM Plex Mono", monospace';
     r.textAlign = 'center';
     for (const stream of streams) {
       const y = (stream.offset + phase * stream.speed / 1000) % (height+400) - 90;
       for (let j = 0; j < stream.length; j++) {
         const yy = y-j*19; if (yy < -20 || yy > height+20) continue;
         const intensity = (1-j/stream.length);
-        r.fillStyle = j===0 ? 'rgba(187,255,175,.55)' : `rgba(69,225,94,${(.33*intensity*intensity).toFixed(3)})`;
+        r.fillStyle = j===0 ? 'rgba(187,255,175,.7)' : `rgba(69,225,94,${(.48*intensity*intensity).toFixed(3)})`;
         const glyph = (stream.key+j*17+Math.floor(phase/(j===0?190:1300)))%chars.length;
         r.fillText(chars[glyph],stream.x,yy);
       }
