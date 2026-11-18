@@ -6,3 +6,6 @@
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.scanlines{display:none}}
 
 @media(max-width:600px){.minimap{width:auto;border:0;background:none;padding:0;top:20px}.minimap>span,.minimap canvas,.minimap i{display:none}.minimap>div{font-size:7px}.minimap>div>span{margin-left:5px}}
+
+.art-survival{background:radial-gradient(ellipse at 50% 80%,#365b29,#0a160e);flex-direction:column;gap:5px}.art-survival i{font:27px var(--display);font-style:normal;line-height:1;color:#bdff94}.art-survival b{font:23px var(--display);color:#caffab;letter-spacing:.02em}.art-survival>span{font-size:5px;color:#83b67c;letter-spacing:.1em}.survival{border-color:#77ad68}
+@media(max-width:600px){.portal.survival{width:152px;margin-left:26px}.survival .portal-number{padding:7px;font-size:6px}.survival .portal-art{height:47px}.survival .art-survival i,.survival .art-survival>span{display:none}.survival .art-survival b{font-size:20px}.survival .portal-bottom{padding:8px}.survival .portal-bottom strong{font-size:9px}.survival .portal-bottom>span{font-size:5px}}

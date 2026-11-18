@@ -8,7 +8,8 @@
     { id: 'orbit', name: 'Orbit', x: 390, y: 390, color: '#bba2ff' },
     { id: 'mood', name: 'Mood.fm', x: 1110, y: 390, color: '#f0accf' },
     { id: 'seance', name: 'Dernière Séance', x: 390, y: 850, color: '#dbba82' },
-    { id: 'apwap', name: 'APWAP', x: 1110, y: 850, color: '#e1d7ac' }
+    { id: 'apwap', name: 'APWAP', x: 1110, y: 850, color: '#e1d7ac' },
+    { id: 'survival', name: 'Néo : Survie', x: 750, y: 365, color: '#aaff8e' }
   ].map(p => ({ ...p, element: document.querySelector(`.portal[data-project="${p.id}"]`) }));
   const storageKey = 'maxime-matrix-game-v1';
   let saved = {};
@@ -37,7 +38,7 @@
     try { sessionStorage.setItem(storageKey, JSON.stringify({ x: mobileLayout ? 750 + (x - 750) * 720 / 250 : x, y, visited: [...visited], started: !introVisible })); } catch (_) {}
   }
   function updateVisited() {
-    $('visited-count').textContent = `${visited.size} / 4 explorés`;
+    $('visited-count').textContent = `${visited.size} / ${projects.length} explorés`;
     projects.forEach(p => p.element.classList.toggle('visited', visited.has(p.id)));
   }
   function start() {
@@ -73,7 +74,8 @@
     const compact = width < 600;
     if (compact !== mobileLayout) {
       player.x = 750 + (player.x - 750) * (compact ? 250 / 720 : 720 / 250);
-      projects.forEach((p, i) => { p.x = compact ? (i % 2 ? 875 : 625) : (i % 2 ? 1110 : 390); });
+      projects.forEach((p, i) => { if(p.id === 'survival'){p.x=750;p.y=compact?620:365;}else{p.x = compact ? (i % 2 ? 875 : 625) : (i % 2 ? 1110 : 390);} });
+      if (compact && Math.hypot(player.x-750, player.y-620)<85) player.y=740;
       mobileLayout = compact; clearInput();
     }
     pixelRatio = Math.min(devicePixelRatio || 1, 2);
@@ -109,7 +111,7 @@
     if (candidate !== nearest) {
       nearest = candidate;
       projects.forEach(p => p.element.classList.toggle('is-near', p === nearest));
-      $('nearby-label').textContent = nearest ? `PORTAIL / ${nearest.name.toUpperCase()}` : 'QUATRE PORTAILS À EXPLORER';
+      $('nearby-label').textContent = nearest ? `PORTAIL / ${nearest.name.toUpperCase()}` : 'CINQ PORTAILS À EXPLORER';
       $('interact-button').disabled = !nearest;
       $('interact-button').replaceChildren(document.createTextNode(nearest ? `Ouvrir ${nearest.name}` : 'Approche d’un projet'));
       const key = document.createElement('span'); key.textContent = 'E'; $('interact-button').append(key);
@@ -225,7 +227,7 @@
     map.clearRect(0,0,180,120);
     map.strokeStyle='#25422d';map.lineWidth=1;map.strokeRect(10,8,160,104);
     const project=(x,y)=>[10+(x-100)/1300*160,8+(y-130)/960*104];
-    for(const p of projects){const[x,y]=project(p.x,p.y);map.fillStyle=visited.has(p.id)?'#bdffa1':'#5f8e67';map.fillRect(x-3,y-3,6,6);map.font='6px monospace';map.textAlign='center';map.fillText(p.name==='Dernière Séance'?'SÉANCE':p.name.toUpperCase(),x,y-7);}
+    for(const p of projects){const[x,y]=project(p.x,p.y);map.fillStyle=visited.has(p.id)?'#bdffa1':'#5f8e67';map.fillRect(x-3,y-3,6,6);map.font='6px monospace';map.textAlign='center';map.fillText(p.id==='survival'?'SURVIE':p.name==='Dernière Séance'?'SÉANCE':p.name.toUpperCase(),x,y-7);}
     const[x,y]=project(player.x,player.y);map.fillStyle='#cbffad';map.beginPath();map.arc(x,y,3,0,Math.PI*2);map.fill();
     map.strokeStyle='#7eb96a55';map.strokeRect(x-width/zoom/1300*80,y-height/zoom/960*52,width/zoom/1300*160,height/zoom/960*104);
   }

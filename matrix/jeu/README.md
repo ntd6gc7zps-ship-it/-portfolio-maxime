@@ -15,7 +15,7 @@ Ouvrir `matrix/jeu/` depuis un serveur statique. Les chemins relatifs fonctionne
 
 ## Fichiers
 
-- `index.html` : interface et liens accessibles vers les quatre projets.
+- `index.html` : interface et liens accessibles vers les cinq destinations.
 - `game.css` : décor des enseignes et interface responsive.
 - `game.js` : monde, Néo, caméra, déplacements et navigation.
 - `return.js` : adapte uniquement les liens de retour des projets ouverts avec `?from=matrix-game`. Les visites ordinaires conservent leurs liens existants.
@@ -26,4 +26,8 @@ L'option de mouvement réduit du navigateur désactive les animations décorativ
 
 ## Vérification avant publication
 
-Vérifier les déplacements, l'entrée sur un cercle, les quatre liens directs, les retours depuis les projets (y compris après navigation interne dans Orbit), la mise en page à 390 px et le menu des projets. Valider la syntaxe avec `node --check game.js` et `node --check return.js`.
+Vérifier les déplacements, l'entrée sur un cercle, les cinq liens directs, les retours depuis les projets (y compris après navigation interne dans Orbit), la mise en page à 390 px et le menu des projets. Valider la syntaxe avec `node --check game.js` et `node --check return.js`.
+
+## Néo : Survie
+
+Le cinquième portail ouvre `survie/` : cinq vagues de Smith et de Sentinelles, tirs continus, vie, soins, ralenti et commandes tactiles. Le retour à la Matrice utilise le lien `../`. Les tests de la simulation se lancent avec `node --test matrix/jeu/survie/tests/engine.test.mjs` depuis la racine du dépôt.
